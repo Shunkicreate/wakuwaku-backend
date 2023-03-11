@@ -87,13 +87,19 @@ app.delete(`/post/:id`, async (req, res) => {
   res.json(post)
 })
 
+app.get('/', async (req, res) => {
+  const htmlElem = "<h1>Hello WakuWaku</h1>"
+  res.write(htmlElem)
+  res.end()
+})
+
 app.get('/users', async (req, res) => {
   const users = await prisma.user.findMany()
   res.json(users)
 })
 
-app.get('/', async (req, res) => {
-  const htmlElem = "<h1>Hello WakuWaku</h1>"
+app.get('/hello', async (req, res) => {
+  const htmlElem = "hello rowld"
   res.write(htmlElem)
   res.end()
 })
