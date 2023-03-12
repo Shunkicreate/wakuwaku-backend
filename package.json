@@ -1,16 +1,31 @@
 {
-  "name": "myexpressapp",
-  "version": "0.0.0",
-  "private": true,
+  "name": "wakuwaku-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.ts",
+  "type": "commonjs",
   "scripts": {
-    "start": "node ./bin/www"
+    "build": "webpack",
+    "watch": "webpack -w",
+    "dev": "npx nodemon src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "ejs": "~2.6.1",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shunkicreate/wakuwaku-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Shunkicreate/wakuwaku-backend/issues"
+  },
+  "homepage": "https://github.com/Shunkicreate/wakuwaku-backend#readme",
+  "devDependencies": {
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "private": true
 }
