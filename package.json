@@ -8,8 +8,7 @@
         "build": "webpack --config ./webpack/prod.config.js",
         "start": "npm run build && node dist/server.js",
         "watch": "webpack -w",
-        "dev": "nodemon -L",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "nodemon -L"
     },
     "repository": {
         "type": "git",
