@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  post_id        Int        @id @default(autoincrement())
+  img_url        String
+  title          String     @default("no title")
+  description    String     @default("no description")
+  uid            Int
+  user           User       @relation(fields: [uid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  alt            String     @default("happy image")
+  posted_at      Int
+  modified_at    Int
+  happiness_rate Float
+  deleted        Boolean    @default(false)
+  favorite       Favorite[]
+}
+
+model User {
+  uid             Int      @id @default(autoincrement())
+  user_name       String
+  profile_message String?
+  post            Post[]
+  image           Image[]
+  follow          Follow[]
+}
+
+model Favorite {
+  favorite_id Int     @id @default(autoincrement())
+  post_id     Int
+  uid         Int
+  fav_at      Int
+  fav         Boolean @default(false)
+  Post        Post?   @relation(fields: [post_id], references: [post_id])
+}
+
+model Follow {
+  follow_id    Int     @id @default(autoincrement())
+  uid          Int
+  followee_uid Int
+  following    Boolean @default(false)
+  followed_at  Int
+  deleted_at   Int
+  user         User?   @relation(fields: [uid], references: [uid])
+}
+
+model Image {
+  img_id  Int    @id @default(autoincrement())
+  img_url String
+  uid     Int
+  user    User   @relation(fields: [uid], references: [uid])
+}
