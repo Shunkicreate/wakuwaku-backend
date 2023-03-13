@@ -1,8 +1,12 @@
 import express from "express";
-import { conn, queryDatabase } from "./connect_sql";
+import { createPost, createUser, getPost, getUser } from "./connect_sql";
 require('dotenv').config();
 
 const app: express.Express = express();
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
 const port = process.env.PORT || 8080;
 
 app.get("/", (req: express.Request, res: express.Response) => {
@@ -10,24 +14,38 @@ app.get("/", (req: express.Request, res: express.Response) => {
 });
 
 app.get("/wakuwaku", (req: express.Request, res: express.Response) => {
-  res.send("wakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwakuwaku");
+  res.send("wakuwaku");
 });
 
-app.get("/connect", (req: express.Request, res: express.Response) => {
-  conn.connect(
-    function (err) {
-      if (err) {
-        console.log("!!! Cannot connect !!! Error:");
-        console.log(err)
-        // throw err;
-      }
-      else {
-        console.log("Connection established.");
-        queryDatabase();
-      }
-    });
+app.post("/create-user", (req: express.Request, res: express.Response) => {
+  console.log(req)
+  console.log(req.body)
+  const { name, profile_message } = req.body;
+  createUser(name, profile_message)
+  return res.json({name, profile_message})
+});
 
-  res.send("");
+app.get("/get-user", (req: express.Request, res: express.Response) => {
+  getUser().then((users) => {
+    console.log('accessed get-user')
+    const return_json = {
+      data: users
+    }
+    return(res.json(return_json))
+  })
+});
+
+app.get("/create-post", (req: express.Request, res: express.Response) => {
+  createPost().then(() => {
+    getPost().then((res) => {
+      const posts = res
+      return posts
+    })
+  })
+});
+
+app.get("/get-post", (req: express.Request, res: express.Response) => {
+  getPost()
 });
 
 app.listen(port, () => {
