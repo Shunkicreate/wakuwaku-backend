@@ -1,7 +1,7 @@
 import express from "express";
 
 const app: express.Express = express();
-const port = 8000;
+const port = 8080;
 
 app.get("/", (req: express.Request, res: express.Response) => {
   res.send("Hello, world!");
