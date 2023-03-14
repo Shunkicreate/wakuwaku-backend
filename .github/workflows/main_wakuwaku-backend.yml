@@ -58,7 +58,6 @@ jobs:
   migrate:
     steps:
       - name: Deploy Migrations
-        uses: actions/setup-node@v2
         run: npx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
