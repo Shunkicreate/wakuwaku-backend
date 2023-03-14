@@ -63,5 +63,3 @@ jobs:
         run: npx prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-        with:
-          node-version: "18.x"
