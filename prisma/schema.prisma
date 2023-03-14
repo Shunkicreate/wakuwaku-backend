@@ -17,7 +17,7 @@ datasource db {
 
 model Post {
   post_id        Int        @id @default(autoincrement())
-  img_url        String
+  img_url        String     @unique
   title          String     @default("no title")
   description    String     @default("no description")
   uid            Int
@@ -32,7 +32,7 @@ model Post {
 
 model User {
   uid             Int      @id @default(autoincrement())
-  user_name       String
+  user_name       String   @unique
   profile_message String?
   post            Post[]
   image           Image[]
