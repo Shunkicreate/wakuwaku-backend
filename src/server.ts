@@ -1,7 +1,7 @@
 import express from "express";
-import { createPost, createUser, deleteUser, getPost, getUser } from "./connect_sql";
+import { createPost, createUser, deleteUser, getOneUser, getPost, getUser } from "./connect_sql";
 require('dotenv').config();
-import { clientUser, clientPost } from "./types/tableType";
+import { clientCreateUser, clientCreatePost, clientGetUser } from "./types/tableType";
 
 const app: express.Express = express();
 app.use(express.json());
@@ -20,17 +20,27 @@ app.get("/wakuwaku", (req, res) => {
 });
 
 app.post("/create-user", (req, res) => {
-  const user = req.body as clientUser;
+  const user = req.body as clientCreateUser;
   console.log("user", user)
   createUser(user).then(() => {
-    return res.json({  })
+    return res.json({})
+  })
+});
+
+app.get("/get-all-user", (req, res) => {
+  getUser().then((users) => {
+    const return_json = {
+      data: users
+    }
+    return (res.json(return_json))
   })
 });
 
 app.get("/get-user", (req, res) => {
-  getUser().then((users) => {
+  const { uid } = req.params as clientGetUser
+  getOneUser(uid).then((user) => {
     const return_json = {
-      data: users
+      data: user
     }
     return (res.json(return_json))
   })
@@ -47,7 +57,7 @@ app.post("/delete-user", (req, res) => {
 });
 
 app.post("/create-post", (req, res) => {
-  const post = req.body as clientPost
+  const post = req.body as clientCreatePost
   createPost(post).then(() => {
     getPost().then((post) => {
       const posts = post

@@ -32,7 +32,7 @@ model Post {
 
 model User {
   uid             Int      @id @default(autoincrement())
-  user_name       String   @unique
+  user_name       String   
   profile_message String?
   google_user_id  String   @unique
   post            Post[]

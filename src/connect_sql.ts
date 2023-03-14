@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client'
-import { clientUser } from './types/tableType'
-import { clientPost } from './types/tableType'
+import { clientCreateUser } from './types/tableType'
+import { clientCreatePost } from './types/tableType'
 
 const prisma = new PrismaClient()
 
-export const createUser = async (user: clientUser) => {
+export const createUser = async (user: clientCreateUser) => {
     const user_name = user.user_name
     const profile_message = user.profile_message
     const google_user_id = user.uid
@@ -30,6 +30,37 @@ export const getUser = async () => {
     return users
 }
 
+export const getOneUser = async (google_user_id: string) => {
+    const uid = await prisma.user.findFirst({
+        where: {
+            google_user_id: google_user_id
+        },
+        select: {
+            uid: true
+        }
+    }).then((res) => {
+        if (res?.uid) {
+            return (res?.uid)
+        }
+        else {
+            return (1)
+        }
+    })
+    const user = await prisma.user.findUnique({
+        where: {
+            uid: uid
+        }
+    }).then((res) => {
+        if(res){
+            return res
+        }
+        else{
+            return null
+        }
+    })
+    return user
+}
+
 export const updateUser = async () => {
 }
 
@@ -45,7 +76,7 @@ export const deleteUser = async (uid: number) => {
     return users
 }
 
-export const createPost = async (post: clientPost) => {
+export const createPost = async (post: clientCreatePost) => {
     const img_url = "dammy"
     const title = post.title || ""
     const description = post.description || ""

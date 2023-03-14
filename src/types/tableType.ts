@@ -18,7 +18,7 @@ export interface Post {
   deleted: boolean | null
 }
 
-export interface clientPost {
+export interface clientCreatePost {
   title: string | null,
   description: string | null,
   uid: string, //google uid
@@ -26,8 +26,15 @@ export interface clientPost {
   happiness_rate: number,
 }
 
-export interface clientUser {
+export interface clientCreateUser {
   uid: string, //google uid
   user_name: string,
   profile_message: string | null
+}
+
+export interface clientGetAllUser {
+}
+
+export interface clientGetUser {
+  uid: string //google uid 
 }
