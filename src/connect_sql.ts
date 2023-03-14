@@ -46,6 +46,7 @@ export const getOneUser = async (google_user_id: string) => {
             return (1)
         }
     })
+    console.log(google_user_id, uid)
     const user = await prisma.user.findUnique({
         where: {
             uid: uid

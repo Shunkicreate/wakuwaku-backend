@@ -37,7 +37,7 @@ app.get("/get-all-user", (req, res) => {
 });
 
 app.get("/get-user", (req, res) => {
-  const { uid } = req.params as clientGetUser
+  const uid = req.query.uid as string
   getOneUser(uid).then((user) => {
     const return_json = {
       data: user
