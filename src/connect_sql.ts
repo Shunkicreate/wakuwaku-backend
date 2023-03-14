@@ -8,11 +8,19 @@ export const createUser = async (user_name: string, profile_message:string) => {
             user_name: user_name,
             profile_message: profile_message,
         },
+    }).then(()=>{
+        console.log('success')
+    }).catch((e)=>{
+        console.log(e)
     })
 }
 
 export const getUser = async () => {
-    const users = await prisma.user.findMany()
+    let users
+    await prisma.user.findMany().then((res)=> {
+        users = res
+        console.log("res", res)
+    })
     return users
 }
 

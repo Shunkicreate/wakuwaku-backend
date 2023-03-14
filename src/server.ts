@@ -18,16 +18,18 @@ app.get("/wakuwaku", (req: express.Request, res: express.Response) => {
 });
 
 app.post("/create-user", (req: express.Request, res: express.Response) => {
-  console.log(req)
-  console.log(req.body)
+  // console.log(req)
+  // console.log(req.body)
   const { name, profile_message } = req.body;
-  createUser(name, profile_message)
-  return res.json({name, profile_message})
+  createUser(name, profile_message).then(()=>{
+    return res.json({name, profile_message})
+  })
 });
 
 app.get("/get-user", (req: express.Request, res: express.Response) => {
   getUser().then((users) => {
-    console.log('accessed get-user')
+    // console.log('accessed get-user')
+    // console.log(users)
     const return_json = {
       data: users
     }
