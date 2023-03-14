@@ -5,7 +5,7 @@
     "main": "src/server.ts",
     "type": "commonjs",
     "scripts": {
-        "build": "npx prisma migrate deploy && webpack --config ./webpack/prod.config.js",
+        "build": "webpack --config ./webpack/prod.config.js",
         "start": "npm run build && node dist/server.js",
         "watch": "webpack -w",
         "dev": "nodemon -L"

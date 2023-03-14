@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v2
         with:
-          node-version: '18.x'
+          node-version: "18.x"
 
       - name: npm install, build, and test
         run: |
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -46,11 +46,22 @@ jobs:
         with:
           name: node-app
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'wakuwaku-backend'
-          slot-name: 'Production'
+          app-name: "wakuwaku-backend"
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3AD192BC13CA49ED86068AA781AE6D69 }}
           package: .
+          
+  migrate:
+    runs-on: ubuntu-latest
+      steps:
+        - name: Deploy Migrations
+          uses: actions/setup-node@v2
+          run: npx prisma migrate deploy
+          env:
+            DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
+          with:
+            node-version: "18.x"
