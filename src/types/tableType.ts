@@ -18,16 +18,16 @@ export interface Post {
   deleted: boolean | null
 }
 
-interface clientPost {
+export interface clientPost {
   title: string | null,
   description: string | null,
-  uid: number,
+  uid: string, //google uid
   alt: string | null,
   happiness_rate: number,
 }
 
-interface clientUser {
-  uid: number,
+export interface clientUser {
+  uid: string, //google uid
   user_name: string,
   profile_message: string | null
 }

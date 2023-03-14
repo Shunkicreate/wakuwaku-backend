@@ -1,7 +1,7 @@
 import express from "express";
 import { createPost, createUser, deleteUser, getPost, getUser } from "./connect_sql";
 require('dotenv').config();
-import { User, Post } from "./types/tableType";
+import { clientUser, clientPost } from "./types/tableType";
 
 const app: express.Express = express();
 app.use(express.json());
@@ -20,7 +20,7 @@ app.get("/wakuwaku", (req, res) => {
 });
 
 app.post("/create-user", (req, res) => {
-  const user = req.body as User;
+  const user = req.body as clientUser;
   console.log("user", user)
   createUser(user).then(() => {
     return res.json({  })
@@ -47,7 +47,7 @@ app.post("/delete-user", (req, res) => {
 });
 
 app.post("/create-post", (req, res) => {
-  const post = req.body as Post
+  const post = req.body as clientPost
   createPost(post).then(() => {
     getPost().then((post) => {
       const posts = post

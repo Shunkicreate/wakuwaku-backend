@@ -1,16 +1,18 @@
 import { PrismaClient } from '@prisma/client'
-import { User } from './types/tableType'
-import { Post } from './types/tableType'
+import { clientUser } from './types/tableType'
+import { clientPost } from './types/tableType'
 
 const prisma = new PrismaClient()
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: clientUser) => {
     const user_name = user.user_name
-    const profile_message = user.profile_message 
+    const profile_message = user.profile_message
+    const google_user_id = user.uid
     await prisma.user.create({
         data: {
             user_name: user_name,
             profile_message: profile_message,
+            google_user_id: google_user_id,
         },
     }).then(() => {
         console.log('success')
@@ -43,19 +45,35 @@ export const deleteUser = async (uid: number) => {
     return users
 }
 
-export const createPost = async (post: Post) => {
+export const createPost = async (post: clientPost) => {
+    const img_url = "dammy"
     const title = post.title || ""
     const description = post.description || ""
     const alt = post.alt || ""
-    const posted_at = post.posted_at || Date.now()
-    const modified_at = post.modified_at || Date.now()
-    const deleted = post.deleted || false
+    const posted_at = Date.now()
+    const modified_at = Date.now()
+    const deleted = false
+    const uid = await prisma.user.findUnique({
+        where: {
+            google_user_id: post.uid
+        },
+        select: {
+            uid: true
+        }
+    }).then((res) => {
+        if (res?.uid) {
+            return (res?.uid)
+        }
+        else {
+            return (1)
+        }
+    })
     await prisma.post.create({
         data: {
-            img_url: post.img_url,
+            img_url: img_url,
             title: title,
             description: description,
-            uid: post.uid,
+            uid: uid,
             alt: alt,
             posted_at: posted_at,
             modified_at: modified_at,
