@@ -17,3 +17,17 @@ export interface Post {
   happiness_rate: number,
   deleted: boolean | null
 }
+
+interface clientPost {
+  title: string | null,
+  description: string | null,
+  uid: number,
+  alt: string | null,
+  happiness_rate: number,
+}
+
+interface clientUser {
+  uid: number,
+  user_name: string,
+  profile_message: string | null
+}

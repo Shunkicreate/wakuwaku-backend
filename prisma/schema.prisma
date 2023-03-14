@@ -34,6 +34,7 @@ model User {
   uid             Int      @id @default(autoincrement())
   user_name       String   @unique
   profile_message String?
+  google_user_id  String   @unique
   post            Post[]
   image           Image[]
   follow          Follow[]
