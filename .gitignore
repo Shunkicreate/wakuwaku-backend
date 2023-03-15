@@ -1,3 +1,6 @@
 node_modules/
 dist/
 *.env*
+gcp-account.json
+tidy-bindery-359106-c1890cb31800.json
+tidy-bindery-359106-ac416c23f1f1.json

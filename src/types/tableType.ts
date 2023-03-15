@@ -7,6 +7,7 @@ export interface User {
 export interface Post {
   post_id: number,
   img_url: string,
+  row_img?: string,
   title: string | null,
   description: string | null,
   uid: number,
@@ -24,6 +25,7 @@ export interface clientCreatePost {
   uid: string, //google uid
   alt: string | null,
   happiness_rate: number,
+  row_img: string,
 }
 
 export interface clientCreateUser {

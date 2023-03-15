@@ -1,0 +1,8 @@
+{
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/786f64bd-59e8-4113-be63-8a9de7d9dd3e/resourceGroups/wakuwaku-backend_group/providers/Microsoft.Web/sites/wakuwaku-backend",
+  "appService.deploySubpath": "."
+}
